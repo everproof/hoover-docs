@@ -1,4 +1,4 @@
-## VIT Registration (Victoria)
+## VIT ECT Registration (Victoria)
 
 > Example request
 
