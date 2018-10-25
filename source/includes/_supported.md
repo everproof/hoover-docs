@@ -1,6 +1,6 @@
 # Verification endpoints
 
-## Get supported verifications
+## Supported verifications
 
 ```shell
 curl "https://hoover.everproof.com/v1/"
