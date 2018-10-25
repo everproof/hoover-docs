@@ -5,7 +5,8 @@ Everproof uses conventional HTTP response codes to indicate the success or failu
 
 Response Code | Meaning
 ---------- | -------
-500 | For server errors
-404 | For not supported checks
-400 | For validation errors (missing properties)
-200 | For everything else
+200 | The request was successful (**this does not mean verification successful**)
+400 | Your request was invalid (i.e., missing properties)
+401 | Your API key was invalid
+404 | The resource doesn't exist
+500 | Error with our servers (very rare)
