@@ -1,0 +1,1150 @@
+
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>API Reference</title>
+
+    <style>
+      .highlight table td { padding: 5px; }
+.highlight table pre { margin: 0; }
+.highlight .gh {
+  color: #999999;
+}
+.highlight .sr {
+  color: #f6aa11;
+}
+.highlight .go {
+  color: #888888;
+}
+.highlight .gp {
+  color: #555555;
+}
+.highlight .gs {
+}
+.highlight .gu {
+  color: #aaaaaa;
+}
+.highlight .nb {
+  color: #f6aa11;
+}
+.highlight .cm {
+  color: #75715e;
+}
+.highlight .cp {
+  color: #75715e;
+}
+.highlight .c1 {
+  color: #75715e;
+}
+.highlight .cs {
+  color: #75715e;
+}
+.highlight .c, .highlight .cd {
+  color: #75715e;
+}
+.highlight .err {
+  color: #960050;
+}
+.highlight .gr {
+  color: #960050;
+}
+.highlight .gt {
+  color: #960050;
+}
+.highlight .gd {
+  color: #49483e;
+}
+.highlight .gi {
+  color: #49483e;
+}
+.highlight .ge {
+  color: #49483e;
+}
+.highlight .kc {
+  color: #66d9ef;
+}
+.highlight .kd {
+  color: #66d9ef;
+}
+.highlight .kr {
+  color: #66d9ef;
+}
+.highlight .no {
+  color: #66d9ef;
+}
+.highlight .kt {
+  color: #66d9ef;
+}
+.highlight .mf {
+  color: #ae81ff;
+}
+.highlight .mh {
+  color: #ae81ff;
+}
+.highlight .il {
+  color: #ae81ff;
+}
+.highlight .mi {
+  color: #ae81ff;
+}
+.highlight .mo {
+  color: #ae81ff;
+}
+.highlight .m, .highlight .mb, .highlight .mx {
+  color: #ae81ff;
+}
+.highlight .sc {
+  color: #ae81ff;
+}
+.highlight .se {
+  color: #ae81ff;
+}
+.highlight .ss {
+  color: #ae81ff;
+}
+.highlight .sd {
+  color: #e6db74;
+}
+.highlight .s2 {
+  color: #e6db74;
+}
+.highlight .sb {
+  color: #e6db74;
+}
+.highlight .sh {
+  color: #e6db74;
+}
+.highlight .si {
+  color: #e6db74;
+}
+.highlight .sx {
+  color: #e6db74;
+}
+.highlight .s1 {
+  color: #e6db74;
+}
+.highlight .s {
+  color: #e6db74;
+}
+.highlight .na {
+  color: #a6e22e;
+}
+.highlight .nc {
+  color: #a6e22e;
+}
+.highlight .nd {
+  color: #a6e22e;
+}
+.highlight .ne {
+  color: #a6e22e;
+}
+.highlight .nf {
+  color: #a6e22e;
+}
+.highlight .vc {
+  color: #ffffff;
+}
+.highlight .nn {
+  color: #ffffff;
+}
+.highlight .nl {
+  color: #ffffff;
+}
+.highlight .ni {
+  color: #ffffff;
+}
+.highlight .bp {
+  color: #ffffff;
+}
+.highlight .vg {
+  color: #ffffff;
+}
+.highlight .vi {
+  color: #ffffff;
+}
+.highlight .nv {
+  color: #ffffff;
+}
+.highlight .w {
+  color: #ffffff;
+}
+.highlight {
+  color: #ffffff;
+}
+.highlight .n, .highlight .py, .highlight .nx {
+  color: #ffffff;
+}
+.highlight .ow {
+  color: #f92672;
+}
+.highlight .nt {
+  color: #f92672;
+}
+.highlight .k, .highlight .kv {
+  color: #f92672;
+}
+.highlight .kn {
+  color: #f92672;
+}
+.highlight .kp {
+  color: #f92672;
+}
+.highlight .o {
+  color: #f92672;
+}
+    </style>
+    <link href="stylesheets/screen.css" rel="stylesheet" media="screen" />
+    <link href="stylesheets/print.css" rel="stylesheet" media="print" />
+      <script src="javascripts/all.js"></script>
+  </head>
+
+  <body class="index" data-languages="[&quot;shell&quot;]">
+    <a href="#" id="nav-button">
+      <span>
+        NAV
+        <img src="images/navbar.png" alt="Navbar" />
+      </span>
+    </a>
+    <div class="toc-wrapper">
+      <img src="images/logo.png" class="logo" alt="Logo" />
+        <div class="lang-selector">
+              <a href="#" data-language-name="shell">cURL</a>
+        </div>
+        <div class="search">
+          <input type="text" class="search" id="input-search" placeholder="Search">
+        </div>
+        <ul class="search-results"></ul>
+      <ul id="toc" class="toc-list-h1">
+          <li>
+            <a href="#introduction" class="toc-h1 toc-link" data-title="Introduction">Introduction</a>
+          </li>
+          <li>
+            <a href="#authentication" class="toc-h1 toc-link" data-title="Authentication">Authentication</a>
+          </li>
+          <li>
+            <a href="#errors" class="toc-h1 toc-link" data-title="Errors">Errors</a>
+          </li>
+          <li>
+            <a href="#status-attribute" class="toc-h1 toc-link" data-title="Status Attribute">Status Attribute</a>
+          </li>
+          <li>
+            <a href="#verification-endpoints" class="toc-h1 toc-link" data-title="Verification endpoints">Verification endpoints</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#wwcc-victoria" class="toc-h2 toc-link" data-title="WWCC (Victoria)">WWCC (Victoria)</a>
+                  </li>
+                  <li>
+                    <a href="#wwcc-western-australia" class="toc-h2 toc-link" data-title="WWCC (Western Australia)">WWCC (Western Australia)</a>
+                  </li>
+                  <li>
+                    <a href="#dcsi-south-australia" class="toc-h2 toc-link" data-title="DCSI (South Australia)">DCSI (South Australia)</a>
+                  </li>
+                  <li>
+                    <a href="#blue-card-queensland" class="toc-h2 toc-link" data-title="Blue Card (Queensland)">Blue Card (Queensland)</a>
+                  </li>
+                  <li>
+                    <a href="#exemption-card-queensland" class="toc-h2 toc-link" data-title="Exemption Card (Queensland)">Exemption Card (Queensland)</a>
+                  </li>
+                  <li>
+                    <a href="#vit-registration-victoria" class="toc-h2 toc-link" data-title="VIT Registration (Victoria)">VIT Registration (Victoria)</a>
+                  </li>
+              </ul>
+          </li>
+      </ul>
+        <ul class="toc-footer">
+            <li><a href='https://everproof.com'>Everproof</a></li>
+            <li><a href='mailto:info@everproof.com'>Request an API Key</a></li>
+            <li><a href='https://everproof.com/static/legals/individual-terms-of-use.pdf'>API Terms & Conditions</a></li>
+        </ul>
+    </div>
+    <div class="page-wrapper">
+      <div class="dark-box"></div>
+      <div class="content">
+        <h1 id='introduction'>Introduction</h1>
+<blockquote>
+<p>As you scroll through the page, you can follow these code snippets to try the API for yourself.</p>
+</blockquote>
+
+<p>Welcome to the Everproof API. The API has several verification endpoints which you can use to verify the validity of documents.</p>
+
+<p>The base URL for all API requests is: https://hoover.everproof.com/v1</p>
+
+<p>The API version is included in the base URL of the request. The current version is v1.</p>
+
+<p>The API accepts JSON in request bodies and requires that the content-type: application/json header be specified for all such requests.</p>
+<h1 id='authentication'>Authentication</h1>
+<blockquote>
+<p>To authorize, use this code:</p>
+</blockquote>
+<pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://hoover.everproof.com/v1/"</span>
+  -H <span class="s2">"Authorization: lukeiamnotyourpassword"</span>
+</code></pre>
+<blockquote>
+<p>Make sure to replace <code>lukeiamnotyourpassword</code> with your API key.</p>
+</blockquote>
+
+<p>Authentication to the API is performed by setting the Authorization header to your API key. Your API key is issued to you by Everproof, please contact info@everproof.com to get one. </p>
+
+<p>All API requests must be made over HTTPS. Calls made over plain HTTP will fail. API requests without authentication will also fail.</p>
+
+<p><code>Authorization: lukeiamnotyourpassword</code></p>
+
+<aside class="notice">
+You must replace <code>lukeiamnotyourpassword</code> with your API key.
+</aside>
+<h1 id='errors'>Errors</h1>
+<p>Everproof uses conventional HTTP response codes to indicate the success or failure of an API request. In general: Codes in the 2xx range indicate success. Codes in the 4xx range indicate an error that failed given the information provided (e.g., a required parameter was omitted, etc.). 404 errors indicate that a check is not supported. Codes in the 5xx range indicate an error with Everproof’s servers (these are rare).</p>
+
+<table><thead>
+<tr>
+<th>Response Code</th>
+<th>Meaning</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>500</td>
+<td>For server errors</td>
+</tr>
+<tr>
+<td>404</td>
+<td>For not supported checks</td>
+</tr>
+<tr>
+<td>400</td>
+<td>For validation errors (missing properties)</td>
+</tr>
+<tr>
+<td>200</td>
+<td>For everything else</td>
+</tr>
+</tbody></table>
+<h1 id='status-attribute'>Status Attribute</h1>
+<p>These are the possible values for the status attribute in all response objects.</p>
+
+<table><thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>VERIFIED</td>
+<td>The document was verified with the source.</td>
+</tr>
+<tr>
+<td>NOT_FOUND</td>
+<td>No document was not found with the details provided.</td>
+</tr>
+<tr>
+<td>ERROR</td>
+<td>The service is currently down.</td>
+</tr>
+<tr>
+<td>EXPIRED</td>
+<td>The document was found and it is expired.</td>
+</tr>
+<tr>
+<td>REVOKED</td>
+<td>The document has been revoked by the source and is no longer valid.</td>
+</tr>
+<tr>
+<td>PROCESSING</td>
+<td>The document was found but it is being processed by the source.</td>
+</tr>
+</tbody></table>
+<h1 id='verification-endpoints'>Verification endpoints</h1><h2 id='wwcc-victoria'>WWCC (Victoria)</h2>
+<blockquote>
+<p>Example request</p>
+</blockquote>
+<pre class="highlight shell tab-shell"><code>curl -H <span class="s1">'Authorization: lukeiamnotyourpassword'</span> -d <span class="s1">'{
+  "documentNumber": "123456789",
+  "person": {
+    "firstName": "Sachin",
+    "middleName": "Ramesh",
+    "lastName": "Tendulkar"
+  },
+  "trackingId": "372630f8-ccea-49a9-b682-ba11188929a9"
+}'</span> <span class="s1">'https://hoover.everproof.com/v1/wwcc/vic'</span>
+</code></pre>
+<blockquote>
+<p>Example response</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+ </span><span class="s2">"approval"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+ </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"VERIFIED"</span><span class="p">,</span><span class="w">
+ </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Working with Children Check number 123456789 (Employee) 
+            for Sachin Ramesh TENDULKAR is current. This person 
+            may engage in child related work and their card expires 
+            on 25 Mar 2025."</span><span class="p">,</span><span class="w">
+ </span><span class="s2">"retrieved"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+     </span><span class="s2">"cardType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Employee"</span><span class="p">,</span><span class="w">
+     </span><span class="s2">"expiryDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2025-03-25"</span><span class="p">,</span><span class="w">
+ </span><span class="p">},</span><span class="w">
+ </span><span class="s2">"trackingId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"372630f8-ccea-49a9-b682-ba11188929a9"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>This endpoint will verify a Working With Children Check issued by the Department of Justice and Regulation in Victoria.</p>
+<h3 id='http-request'>HTTP Request</h3>
+<p><code>POST https://hoover.everproof.com/v1/wwcc/vic</code></p>
+<h3 id='request-arguments'>Request arguments</h3>
+<table><thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+<th>Required</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>documentNumber</td>
+<td>string</td>
+<td>The identification number on the document or card to verify.</td>
+<td>Required</td>
+</tr>
+<tr>
+<td>expiryDate</td>
+<td>string</td>
+<td>The date of expiry of the document.</td>
+<td>Optional</td>
+</tr>
+<tr>
+<td>person</td>
+<td>object</td>
+<td>Defined directly below</td>
+<td>Required</td>
+</tr>
+<tr>
+<td>trackingId</td>
+<td>string</td>
+<td>A value you can set that we will include in our response.</td>
+<td>Required</td>
+</tr>
+</tbody></table>
+<h4 id='person'>Person</h4>
+<table><thead>
+<tr>
+<th>Value</th>
+<th>Type</th>
+<th>Description</th>
+<th>Required</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>firstName</td>
+<td>string</td>
+<td>The document holder&#39;s first name</td>
+<td>Optional</td>
+</tr>
+<tr>
+<td>middleName</td>
+<td>string</td>
+<td>The document holder&#39;s middle name</td>
+<td>Optional</td>
+</tr>
+<tr>
+<td>lastName</td>
+<td>string</td>
+<td>The document holder&#39;s last name</td>
+<td>Required</td>
+</tr>
+<tr>
+<td>dateOfBirth</td>
+<td>string (yyyy-mm-dd)</td>
+<td>The document holder&#39;s date of birth</td>
+<td>Optional</td>
+</tr>
+</tbody></table>
+<h3 id='response-values'>Response values</h3>
+<table><thead>
+<tr>
+<th>Value</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>approval</td>
+<td>boolean</td>
+<td>A boolean representing if the individual is permitted to work with children.</td>
+</tr>
+<tr>
+<td>status</td>
+<td>string</td>
+<td>Possible values for status defined in the &quot;Status Attribute&quot; section of this documentation.</td>
+</tr>
+<tr>
+<td>message</td>
+<td>string</td>
+<td>The message returned from the Department of Justice and Regulation.</td>
+</tr>
+<tr>
+<td>retrieved</td>
+<td>object</td>
+<td>Any extra data that we retrieve from the Department of Justice and Regulation.</td>
+</tr>
+<tr>
+<td>trackingId</td>
+<td>string</td>
+<td>The value that you sent with your request.</td>
+</tr>
+</tbody></table>
+<h2 id='wwcc-western-australia'>WWCC (Western Australia)</h2>
+<blockquote>
+<p>Example request</p>
+</blockquote>
+<pre class="highlight shell tab-shell"><code>curl -H <span class="s1">'Authorization: lukeiamnotyourpassword'</span> -d <span class="s1">'{
+  "documentNumber": "123456789",
+  "person": {
+    "firstName": "Sachin",
+    "middleName": "Ramesh",
+    "lastName": "Tendulkar"
+
+  },
+  "trackingId": "372630f8-ccea-49a9-b682-ba11188929a9"
+}'</span> <span class="s1">'https://hoover.everproof.com/v1/wwcc/wa'</span>
+</code></pre>
+<blockquote>
+<p>Example response</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+ </span><span class="s2">"approval"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+ </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"VERIFIED"</span><span class="p">,</span><span class="w">
+ </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Card number 123456789 for Tendulkar is valid on the date of Thursday, 25 October 2018"</span><span class="p">,</span><span class="w">
+ </span><span class="s2">"trackingId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"372630f8-ccea-49a9-b682-ba11188929a9"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>This endpoint will verify a Working with Children Check issued by the Department for Child Protection and Family Support in Western Australia.</p>
+<h3 id='http-request'>HTTP Request</h3>
+<p><code>POST https://hoover.everproof.com/v1/wwcc/wa</code></p>
+<h3 id='request-arguments'>Request arguments</h3>
+<table><thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+<th>Required</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>documentNumber</td>
+<td>string</td>
+<td>The identification number on the document or card to verify.</td>
+<td>Required</td>
+</tr>
+<tr>
+<td>expiryDate</td>
+<td>string</td>
+<td>The date of expiry of the document.</td>
+<td>Optional</td>
+</tr>
+<tr>
+<td>person</td>
+<td>object</td>
+<td>Defined directly below</td>
+<td>Required</td>
+</tr>
+<tr>
+<td>trackingId</td>
+<td>string</td>
+<td>A value you can set that we will include in our response.</td>
+<td>Required</td>
+</tr>
+</tbody></table>
+<h4 id='person'>Person</h4>
+<table><thead>
+<tr>
+<th>Value</th>
+<th>Type</th>
+<th>Description</th>
+<th>Required</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>firstName</td>
+<td>string</td>
+<td>The document holder&#39;s first name</td>
+<td>Optional</td>
+</tr>
+<tr>
+<td>middleName</td>
+<td>string</td>
+<td>The document holder&#39;s middle name</td>
+<td>Optional</td>
+</tr>
+<tr>
+<td>lastName</td>
+<td>string</td>
+<td>The document holder&#39;s last name</td>
+<td>Required</td>
+</tr>
+<tr>
+<td>dateOfBirth</td>
+<td>string (yyyy-mm-dd)</td>
+<td>The document holder&#39;s date of birth</td>
+<td>Optional</td>
+</tr>
+</tbody></table>
+<h3 id='response-values'>Response values</h3>
+<table><thead>
+<tr>
+<th>Value</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>approval</td>
+<td>boolean</td>
+<td>A boolean representing if the individual is permitted to work with children.</td>
+</tr>
+<tr>
+<td>status</td>
+<td>string</td>
+<td>Possible values for status defined in the &quot;Status Attribute&quot; section of this documentation.</td>
+</tr>
+<tr>
+<td>message</td>
+<td>string</td>
+<td>The message returned from the Department for Child Protection and Family Support.</td>
+</tr>
+<tr>
+<td>retrieved</td>
+<td>object</td>
+<td>Any extra data that we retrieve from the Department for Child Protection and Family Support.</td>
+</tr>
+<tr>
+<td>trackingId</td>
+<td>string</td>
+<td>The value that you sent with your request.</td>
+</tr>
+</tbody></table>
+<h2 id='dcsi-south-australia'>DCSI (South Australia)</h2>
+<blockquote>
+<p>Example request</p>
+</blockquote>
+<pre class="highlight shell tab-shell"><code>curl -H <span class="s1">'Authorization: lukeiamnotyourpassword'</span> -d <span class="s1">'{
+  "documentNumber": "123456789",
+  "person": {
+    "firstName": "Sachin",
+    "middleName": "Ramesh",
+    "lastName": "Tendulkar",
+    "dateOfBirth": "1973-04-23"
+  },
+  "trackingId": "372630f8-ccea-49a9-b682-ba11188929a9"
+}'</span> <span class="s1">'https://hoover.everproof.com/v1/wwcc/sa'</span>
+</code></pre>
+<blockquote>
+<p>Example response</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+ </span><span class="s2">"approval"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+ </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CLEARED"</span><span class="p">,</span><span class="w">
+ </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Valid for 3 years from the determination date unless revoked by the screening unit."</span><span class="p">,</span><span class="w">
+ </span><span class="s2">"retrieved"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+     </span><span class="s2">"determinationDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016/10/24"</span><span class="p">,</span><span class="w">
+ </span><span class="p">},</span><span class="w">
+ </span><span class="s2">"trackingId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"372630f8-ccea-49a9-b682-ba11188929a9"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>This endpoint will verify a DCSI Screening conducted by the Department for Communities and Social Inclusion in South Australia.</p>
+<h3 id='http-request'>HTTP Request</h3>
+<p><code>POST https://hoover.everproof.com/v1/wwcc/sa</code></p>
+<h3 id='request-arguments'>Request arguments</h3>
+<table><thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+<th>Required</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>documentNumber</td>
+<td>string</td>
+<td>The identification number on the document or card to verify.</td>
+<td>Required</td>
+</tr>
+<tr>
+<td>expiryDate</td>
+<td>string</td>
+<td>The date of expiry of the document.</td>
+<td>Optional</td>
+</tr>
+<tr>
+<td>person</td>
+<td>object</td>
+<td>Possible values for person defined in the &quot;Person&quot; menu on the left.</td>
+<td>Required</td>
+</tr>
+<tr>
+<td>trackingId</td>
+<td>string</td>
+<td>A value you can set that we will include in our response.</td>
+<td>Required</td>
+</tr>
+</tbody></table>
+<h4 id='person'>Person</h4>
+<table><thead>
+<tr>
+<th>Value</th>
+<th>Type</th>
+<th>Description</th>
+<th>Required</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>firstName</td>
+<td>string</td>
+<td>The document holder&#39;s first name</td>
+<td>Required</td>
+</tr>
+<tr>
+<td>middleName</td>
+<td>string</td>
+<td>The document holder&#39;s middle name</td>
+<td>Required</td>
+</tr>
+<tr>
+<td>lastName</td>
+<td>string</td>
+<td>The document holder&#39;s last name</td>
+<td>Required</td>
+</tr>
+<tr>
+<td>dateOfBirth</td>
+<td>string (yyyy-mm-dd)</td>
+<td>The document holder&#39;s date of birth</td>
+<td>Required</td>
+</tr>
+</tbody></table>
+<h3 id='response-values'>Response values</h3>
+<table><thead>
+<tr>
+<th>Value</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>approval</td>
+<td>boolean</td>
+<td>A boolean representing if the individual is permitted to work with children.</td>
+</tr>
+<tr>
+<td>status</td>
+<td>string</td>
+<td>Possible values for status defined in the &quot;Status Attribute&quot; section of this documentation.</td>
+</tr>
+<tr>
+<td>message</td>
+<td>string</td>
+<td>The message returned from the Department for Communities and Social Inclusion.</td>
+</tr>
+<tr>
+<td>retrieved</td>
+<td>object</td>
+<td>Any extra data that we retrieve from the Department for Communities and Social Inclusion.</td>
+</tr>
+<tr>
+<td>trackingId</td>
+<td>string</td>
+<td>The value that you sent with your request.</td>
+</tr>
+</tbody></table>
+<h2 id='blue-card-queensland'>Blue Card (Queensland)</h2>
+<blockquote>
+<p>Example request</p>
+</blockquote>
+<pre class="highlight shell tab-shell"><code>curl -H <span class="s1">'Authorization: lukeiamnotyourpassword'</span> -d <span class="s1">'{
+  "documentNumber": "12345678/9",
+  "expiryDate": "2024-01-12",
+  "person": {
+    "firstName": "Sachin",
+    "middleName": "Ramesh",
+    "lastName": "Tendulkar",
+    "dateOfBirth": "1973-04-23"
+  },
+  "trackingId": "372630f8-ccea-49a9-b682-ba11188929a9"
+}'</span> <span class="s1">'https://hoover.everproof.com/v1/wwcc/qld/blue-card'</span>
+</code></pre>
+<blockquote>
+<p>Example response</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+ </span><span class="s2">"approval"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+ </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"VERIFIED"</span><span class="p">,</span><span class="w">
+ </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"12345678/9 is a valid card."</span><span class="p">,</span><span class="w">
+ </span><span class="s2">"trackingId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"372630f8-ccea-49a9-b682-ba11188929a9"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>This endpoint will verify a Blue Card with the Public Safety Business Agency in Queensland.</p>
+<h3 id='http-request'>HTTP Request</h3>
+<p><code>POST https://hoover.everproof.com/v1/wwcc/qld/blue-card</code></p>
+<h3 id='request-arguments'>Request arguments</h3>
+<table><thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+<th>Required</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>documentNumber</td>
+<td>string</td>
+<td>The identification number on the document or card to verify.</td>
+<td>Required</td>
+</tr>
+<tr>
+<td>expiryDate</td>
+<td>string</td>
+<td>The date of expiry of the document.</td>
+<td>Required</td>
+</tr>
+<tr>
+<td>person</td>
+<td>object</td>
+<td>Defined below</td>
+<td>Required</td>
+</tr>
+<tr>
+<td>trackingId</td>
+<td>string</td>
+<td>A value you can set that we will include in our response.</td>
+<td>Required</td>
+</tr>
+</tbody></table>
+<h4 id='person'>Person</h4>
+<table><thead>
+<tr>
+<th>Value</th>
+<th>Type</th>
+<th>Description</th>
+<th>Required</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>firstName</td>
+<td>string</td>
+<td>The document holder&#39;s first name</td>
+<td>Required</td>
+</tr>
+<tr>
+<td>middleName</td>
+<td>string</td>
+<td>The document holder&#39;s middle name</td>
+<td>Required</td>
+</tr>
+<tr>
+<td>lastName</td>
+<td>string</td>
+<td>The document holder&#39;s last name</td>
+<td>Required</td>
+</tr>
+<tr>
+<td>dateOfBirth</td>
+<td>string (yyyy-mm-dd)</td>
+<td>The document holder&#39;s date of birth</td>
+<td>Optional</td>
+</tr>
+</tbody></table>
+<h3 id='response-values'>Response values</h3>
+<table><thead>
+<tr>
+<th>Value</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>approval</td>
+<td>boolean</td>
+<td>A boolean representing if the individual is permitted to work with children.</td>
+</tr>
+<tr>
+<td>status</td>
+<td>string</td>
+<td>Possible values for status defined in the &quot;Status Attribute&quot; menu on the left.</td>
+</tr>
+<tr>
+<td>message</td>
+<td>string</td>
+<td>The message returned from the Public Safety Business Agency.</td>
+</tr>
+<tr>
+<td>retrieved</td>
+<td>object</td>
+<td>Any extra data that we retrieve from the Public Safety Business Agency.</td>
+</tr>
+<tr>
+<td>trackingId</td>
+<td>string</td>
+<td>The value that you sent with your request.</td>
+</tr>
+</tbody></table>
+<h2 id='exemption-card-queensland'>Exemption Card (Queensland)</h2>
+<blockquote>
+<p>Example request</p>
+</blockquote>
+<pre class="highlight shell tab-shell"><code>curl -H <span class="s1">'Authorization: lukeiamnotyourpassword'</span> -d <span class="s1">'{
+  "documentNumber": "123456789",
+  "person": {
+    "firstName": "Sachin",
+    "middleName": "Ramesh",
+    "lastName": "Tendulkar",
+  },
+  "trackingId": "372630f8-ccea-49a9-b682-ba11188929a9"
+}'</span> <span class="s1">'https://hoover.everproof.com/v1/wwcc/qld/exemption-card'</span>
+</code></pre>
+<blockquote>
+<p>Example response</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+ </span><span class="s2">"approval"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+ </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"VERIFIED"</span><span class="p">,</span><span class="w">
+ </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"TODO: Fill this in"</span><span class="p">,</span><span class="w">
+ </span><span class="s2">"trackingId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"372630f8-ccea-49a9-b682-ba11188929a9"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>This endpoint will verify a Exemption Card with the Public Safety Business Agency in Queensland.</p>
+<h3 id='http-request'>HTTP Request</h3>
+<p><code>POST https://hoover.everproof.com/v1/wwcc/qld/exemption-card</code></p>
+<h3 id='request-arguments'>Request arguments</h3>
+<table><thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+<th>Required</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>documentNumber</td>
+<td>string</td>
+<td>The identification number on the document or card to verify.</td>
+<td>Required</td>
+</tr>
+<tr>
+<td>person</td>
+<td>object</td>
+<td>Possible values for person defined in the &quot;Person&quot; menu on the left.</td>
+<td>Required</td>
+</tr>
+<tr>
+<td>trackingId</td>
+<td>string</td>
+<td>A value you can set that we will include in our response.</td>
+<td>Required</td>
+</tr>
+</tbody></table>
+<h4 id='person'>Person</h4>
+<table><thead>
+<tr>
+<th>Value</th>
+<th>Type</th>
+<th>Description</th>
+<th>Required</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>firstName</td>
+<td>string</td>
+<td>The document holder&#39;s first name</td>
+<td>Required</td>
+</tr>
+<tr>
+<td>middleName</td>
+<td>string</td>
+<td>The document holder&#39;s middle name</td>
+<td>Required</td>
+</tr>
+<tr>
+<td>lastName</td>
+<td>string</td>
+<td>The document holder&#39;s last name</td>
+<td>Required</td>
+</tr>
+<tr>
+<td>dateOfBirth</td>
+<td>string (yyyy-mm-dd)</td>
+<td>The document holder&#39;s date of birth</td>
+<td>Optional</td>
+</tr>
+</tbody></table>
+<h3 id='response-values'>Response values</h3>
+<table><thead>
+<tr>
+<th>Value</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>approval</td>
+<td>boolean</td>
+<td>A boolean representing if the individual is permitted to work with children.</td>
+</tr>
+<tr>
+<td>status</td>
+<td>string</td>
+<td>Possible values for status defined in the &quot;Status Attribute&quot; menu on the left.</td>
+</tr>
+<tr>
+<td>message</td>
+<td>string</td>
+<td>The message returned from the Public Safety Business Agency.</td>
+</tr>
+<tr>
+<td>retrieved</td>
+<td>object</td>
+<td>Any extra data that we retrieve from the Public Safety Business Agency.</td>
+</tr>
+<tr>
+<td>trackingId</td>
+<td>string</td>
+<td>The value that you sent with your request.</td>
+</tr>
+</tbody></table>
+<h2 id='vit-registration-victoria'>VIT Registration (Victoria)</h2>
+<blockquote>
+<p>Example request</p>
+</blockquote>
+<pre class="highlight shell tab-shell"><code>curl -H <span class="s1">'Authorization: lukeiamnotyourpassword'</span> -d <span class="s1">'{
+  "documentNumber": "123456789",
+  "person": {
+    "firstName": "Sachin",
+    "middleName": "Ramesh",
+    "lastName": "Tendulkar",
+    "dateOfBirth": "1973-04-23"
+  },
+  "trackingId": "372630f8-ccea-49a9-b682-ba11188929a9"
+}'</span> <span class="s1">'https://hoover.everproof.com/v1/vit'</span>
+</code></pre>
+<blockquote>
+<p>Example response</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+ </span><span class="s2">"approval"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+ </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"VERIFIED"</span><span class="p">,</span><span class="w">
+ </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"TODO: Fill this in"</span><span class="p">,</span><span class="w">
+ </span><span class="s2">"trackingId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"372630f8-ccea-49a9-b682-ba11188929a9"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>This endpoint will verify a Teaching Registration with the Victorian Institute of Teaching. We can verify both Teacher and Early Childhood Teacher (ECT) registrations.</p>
+<h3 id='http-request'>HTTP Request</h3>
+<p><code>POST https://hoover.everproof.com/v1/vit</code></p>
+<h3 id='request-arguments'>Request arguments</h3>
+<table><thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+<th>Required</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>documentNumber</td>
+<td>string</td>
+<td>The identification number on the document or card to verify.</td>
+<td>Required</td>
+</tr>
+<tr>
+<td>expiryDate</td>
+<td>string</td>
+<td>The date of expiry of the document.</td>
+<td>Optional</td>
+</tr>
+<tr>
+<td>person</td>
+<td>object</td>
+<td>Possible values for person defined in the &quot;Person&quot; menu on the left.</td>
+<td>Required</td>
+</tr>
+<tr>
+<td>trackingId</td>
+<td>string</td>
+<td>A value you can set that we will include in our response.</td>
+<td>Required</td>
+</tr>
+</tbody></table>
+<h4 id='person'>Person</h4>
+<table><thead>
+<tr>
+<th>Value</th>
+<th>Type</th>
+<th>Description</th>
+<th>Required</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>firstName</td>
+<td>string</td>
+<td>The document holder&#39;s first name</td>
+<td>Required</td>
+</tr>
+<tr>
+<td>middleName</td>
+<td>string</td>
+<td>The document holder&#39;s middle name</td>
+<td>Optional</td>
+</tr>
+<tr>
+<td>lastName</td>
+<td>string</td>
+<td>The document holder&#39;s last name</td>
+<td>Required</td>
+</tr>
+<tr>
+<td>dateOfBirth</td>
+<td>string (yyyy-mm-dd)</td>
+<td>The document holder&#39;s date of birth</td>
+<td>Optional</td>
+</tr>
+</tbody></table>
+<h3 id='response-values'>Response values</h3>
+<table><thead>
+<tr>
+<th>Value</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>approval</td>
+<td>boolean</td>
+<td>A boolean representing if the individual is permitted to teach.</td>
+</tr>
+<tr>
+<td>status</td>
+<td>string</td>
+<td>Possible values for status defined in the &quot;Status Attribute&quot; menu on the left.</td>
+</tr>
+<tr>
+<td>message</td>
+<td>string</td>
+<td>The message returned from the Victorian Institute of Teaching.</td>
+</tr>
+<tr>
+<td>retrieved</td>
+<td>object</td>
+<td>Any extra data that we retrieve from the Victorian Institute of Teaching.</td>
+</tr>
+<tr>
+<td>trackingId</td>
+<td>string</td>
+<td>The value that you sent with your request.</td>
+</tr>
+</tbody></table>
+
+      </div>
+      <div class="dark-box">
+          <div class="lang-selector">
+                <a href="#" data-language-name="shell">cURL</a>
+          </div>
+      </div>
+    </div>
+  </body>
+</html>
