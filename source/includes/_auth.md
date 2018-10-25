@@ -9,7 +9,7 @@ curl "https://hoover.everproof.com/v1/"
 
 > Make sure to replace `lukeiamnotyourpassword` with your API key.
 
-Authentication to the API is performed by setting the Authorization header to your API key. Your API key is issued to you by Everproof, please contact info@everproof.com to get one. 
+Authentication to the API is performed by passing your API key as a bearer token in the Authorization header. Your API key is issued to you by Everproof, please contact info@everproof.com to get one. 
 
 All API requests must be made over HTTPS. Calls made over plain HTTP will fail. API requests without authentication will also fail.
 

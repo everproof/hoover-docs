@@ -26,7 +26,7 @@ curl -H 'Authorization: lukeiamnotyourpassword' -d '{
 }
 ```
 
-This endpoint will verify a Teaching Registration with the Victorian Institute of Teaching. We can verify both Teacher and Early Childhood Teacher (ECT) registrations.
+This endpoint will verify a Teaching Registration with the Victorian Institute of Teaching.
 
 ### HTTP Request
 
