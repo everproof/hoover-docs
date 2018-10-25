@@ -21,6 +21,7 @@ includes:
   - wwcc_blue_card
   - wwcc_exemption_card
   - vit
+  - vit_ect
 
 search: true
 ---
