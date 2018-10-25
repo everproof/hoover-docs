@@ -2,12 +2,14 @@
 
 ## Supported verifications
 
+> Example request
+
 ```shell
 curl "https://hoover.everproof.com/v1/"
   -H "Authorization: lukeiamnotyourpassword"
 ```
 
-> The above command returns JSON structured like this:
+> Example response
 
 ```json
 [
