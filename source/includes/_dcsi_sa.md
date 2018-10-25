@@ -20,7 +20,7 @@ curl -H 'Authorization: lukeiamnotyourpassword' -d '{
 ```json
 {
  "approval": true,
- "status": "CLEARED",
+ "status": "VERIFIED",
  "message": "Valid for 3 years from the determination date unless revoked by the screening unit.",
  "retrieved": {
      "determinationDate": "2016/10/24",

@@ -1,3 +1,5 @@
+# Verification endpoints
+
 ## Get supported verifications
 
 ```shell

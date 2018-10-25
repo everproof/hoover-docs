@@ -14,6 +14,7 @@ includes:
   - auth
   - errors
   - status
+  - supported
   - wwcc_vic
   - wwcc_wa
   - dcsi_sa

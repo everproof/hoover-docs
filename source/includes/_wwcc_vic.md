@@ -1,5 +1,3 @@
-# Verification endpoints
-
 ## WWCC (Victoria)
 
 > Example request
