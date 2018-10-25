@@ -234,6 +234,9 @@
             <a href="#verification-endpoints" class="toc-h1 toc-link" data-title="Verification endpoints">Verification endpoints</a>
               <ul class="toc-list-h2">
                   <li>
+                    <a href="#get-supported-verifications" class="toc-h2 toc-link" data-title="Get supported verifications">Get supported verifications</a>
+                  </li>
+                  <li>
                     <a href="#wwcc-victoria" class="toc-h2 toc-link" data-title="WWCC (Victoria)">WWCC (Victoria)</a>
                   </li>
                   <li>
@@ -355,7 +358,24 @@ You must replace <code>lukeiamnotyourpassword</code> with your API key.
 <td>The document was found but it is being processed by the source.</td>
 </tr>
 </tbody></table>
-<h1 id='verification-endpoints'>Verification endpoints</h1><h2 id='wwcc-victoria'>WWCC (Victoria)</h2>
+<h1 id='verification-endpoints'>Verification endpoints</h1><h2 id='get-supported-verifications'>Get supported verifications</h2><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://hoover.everproof.com/v1/"</span>
+  -H <span class="s2">"Authorization: lukeiamnotyourpassword"</span>
+</code></pre>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Working with Children Check (VIC)"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"provider"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Department of Justice &amp; Regulation (VIC)"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.everproof.com/v1/wwcc/vic/"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
+<p>This endpoint will return a list of all documents that we are able to verify. The response will also include the URL that you use to access those verifications. This gives you the flexibility to programatically check the URL to use to verify a document, meaning that if we ever change URLs you should not be impacted.</p>
+<h3 id='http-request'>HTTP Request</h3>
+<p><code>GET https://hoover.everproof.com/v1/</code></p>
+<h2 id='wwcc-victoria'>WWCC (Victoria)</h2>
 <blockquote>
 <p>Example request</p>
 </blockquote>
@@ -641,7 +661,7 @@ You must replace <code>lukeiamnotyourpassword</code> with your API key.
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
  </span><span class="s2">"approval"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
- </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CLEARED"</span><span class="p">,</span><span class="w">
+ </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"VERIFIED"</span><span class="p">,</span><span class="w">
  </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Valid for 3 years from the determination date unless revoked by the screening unit."</span><span class="p">,</span><span class="w">
  </span><span class="s2">"retrieved"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
      </span><span class="s2">"determinationDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016/10/24"</span><span class="p">,</span><span class="w">
