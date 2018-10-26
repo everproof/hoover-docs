@@ -292,7 +292,7 @@
 <p>Make sure to replace <code>lukeiamnotyourpassword</code> with your API key.</p>
 </blockquote>
 
-<p>Authentication to the API is performed by setting the Authorization header to your API key. Your API key is issued to you by Everproof, please contact info@everproof.com to get one. </p>
+<p>Authentication to the API is performed by passing your API key as a bearer token in the Authorization header. Your API key is issued to you by Everproof, please contact info@everproof.com to get one. </p>
 
 <p>All API requests must be made over HTTPS. Calls made over plain HTTP will fail. API requests without authentication will also fail.</p>
 
@@ -311,20 +311,24 @@ You must replace <code>lukeiamnotyourpassword</code> with your API key.
 </tr>
 </thead><tbody>
 <tr>
-<td>500</td>
-<td>For server errors</td>
-</tr>
-<tr>
-<td>404</td>
-<td>For not supported checks</td>
+<td>200</td>
+<td>The request was successful (<strong>this does not mean verification successful</strong>)</td>
 </tr>
 <tr>
 <td>400</td>
-<td>For validation errors (missing properties)</td>
+<td>Your request was invalid (i.e., missing properties)</td>
 </tr>
 <tr>
-<td>200</td>
-<td>For everything else</td>
+<td>401</td>
+<td>Your API key was invalid</td>
+</tr>
+<tr>
+<td>404</td>
+<td>The resource doesn&#39;t exist</td>
+</tr>
+<tr>
+<td>500</td>
+<td>Error with our servers (very rare)</td>
 </tr>
 </tbody></table>
 <h1 id='status-attribute'>Status Attribute</h1>
@@ -379,7 +383,7 @@ You must replace <code>lukeiamnotyourpassword</code> with your API key.
   </span><span class="p">}</span><span class="w">
 </span><span class="p">]</span><span class="w">
 </span></code></pre>
-<p>This endpoint will return a list of all documents that we are able to verify. The response will also include the URL that you use to access those verifications. This gives you the flexibility to programatically check the URL to use to verify a document, meaning that if we ever change URLs you should not be impacted.</p>
+<p>This endpoint will return a list of all documents that we are able to verify. The response will also include the URL that you use to access those verifications. This gives you the flexibility to programmatically check the URL to use to verify a document, meaning that if we ever change URLs you should not be impacted.</p>
 <h3 id='http-request'>HTTP Request</h3>
 <p><code>GET https://hoover.everproof.com/v1/</code></p>
 <h2 id='wwcc-victoria'>WWCC (Victoria)</h2>
@@ -671,7 +675,8 @@ You must replace <code>lukeiamnotyourpassword</code> with your API key.
  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"VERIFIED"</span><span class="p">,</span><span class="w">
  </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Valid for 3 years from the determination date unless revoked by the screening unit."</span><span class="p">,</span><span class="w">
  </span><span class="s2">"retrieved"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-     </span><span class="s2">"determinationDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016/10/24"</span><span class="p">,</span><span class="w">
+     </span><span class="s2">"attainedDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016/10/24"</span><span class="p">,</span><span class="w">
+     </span><span class="s2">"expiryDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019/10/24"</span><span class="w">
  </span><span class="p">},</span><span class="w">
  </span><span class="s2">"trackingId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"372630f8-ccea-49a9-b682-ba11188929a9"</span><span class="w">
 </span><span class="p">}</span><span class="w">
@@ -1060,7 +1065,7 @@ You must replace <code>lukeiamnotyourpassword</code> with your API key.
  </span><span class="s2">"trackingId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"372630f8-ccea-49a9-b682-ba11188929a9"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
-<p>This endpoint will verify a Teaching Registration with the Victorian Institute of Teaching. We can verify both Teacher and Early Childhood Teacher (ECT) registrations.</p>
+<p>This endpoint will verify a Teaching Registration with the Victorian Institute of Teaching.</p>
 <h3 id='http-request'>HTTP Request</h3>
 <p><code>POST https://hoover.everproof.com/v1/vit</code></p>
 <h3 id='request-arguments'>Request arguments</h3>
