@@ -23,7 +23,8 @@ curl -H 'Authorization: lukeiamnotyourpassword' -d '{
  "status": "VERIFIED",
  "message": "Valid for 3 years from the determination date unless revoked by the screening unit.",
  "retrieved": {
-     "determinationDate": "2016/10/24",
+     "attainedDate": "2016/10/24",
+     "expiryDate": "2019/10/24"
  },
  "trackingId": "372630f8-ccea-49a9-b682-ba11188929a9"
 }
