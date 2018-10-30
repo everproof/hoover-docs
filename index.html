@@ -374,7 +374,7 @@ You must replace <code>lukeiamnotyourpassword</code> with your API key.
 </tr>
 </tbody></table>
 <h1 id='webhooks'>Webhooks</h1>
-<p>The verification results are sent asynchronously.</p>
+<p>Your verification results will be sent asynchronously.</p>
 
 <p>Pass along a <code>webhookUrl</code> parameter in every request body, that contains the location you&#39;d like us to POST your verification results to.</p>
 
@@ -414,6 +414,8 @@ You must replace <code>lukeiamnotyourpassword</code> with your API key.
 </span><span class="p">]</span><span class="w">
 </span></code></pre>
 <p>This endpoint will return a list of all documents that we are able to verify. The response will also include the URL that you use to access those verifications. This gives you the flexibility to programmatically check the URL to use to verify a document, meaning that if we ever change URLs you should not be impacted.</p>
+
+<p>Note that this endpoint is synchronous and doesn&#39;t use a webhook.</p>
 <h3 id='http-request'>HTTP Request</h3>
 <p><code>GET https://hoover.everproof.com/v1/</code></p>
 <h2 id='wwcc-victoria'>WWCC (Victoria)</h2>
@@ -595,20 +597,26 @@ You must replace <code>lukeiamnotyourpassword</code> with your API key.
     "lastName": "Tendulkar"
 
   },
-  "trackingId": "372630f8-ccea-49a9-b682-ba11188929a9"
+  "trackingId": "372630f8-ccea-49a9-b682-ba11188929a9",
+  "webhookUrl": "https://webhook.com/everproof/results"
 }'</span> <span class="s1">'https://hoover.everproof.com/v1/wwcc/wa'</span>
 </code></pre>
 <blockquote>
-<p>Example response</p>
+<p>Example result (sent via webhook)</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
- </span><span class="s2">"approval"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
- </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"VERIFIED"</span><span class="p">,</span><span class="w">
- </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Card number 123456789 for Tendulkar is valid on the date of Thursday, 25 October 2018"</span><span class="p">,</span><span class="w">
+ </span><span class="s2">"result"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="s2">"approval"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"VERIFIED"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Card number 123456789 for Tendulkar is valid on the date of Thursday, 25 October 2018"</span><span class="p">,</span><span class="w">
+ </span><span class="p">},</span><span class="w">
+ </span><span class="s2">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-10-30T01:58:16+00:00"</span><span class="p">,</span><span class="w">
  </span><span class="s2">"trackingId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"372630f8-ccea-49a9-b682-ba11188929a9"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <p>This endpoint will verify a Working with Children Check issued by the Department for Child Protection and Family Support in Western Australia.</p>
+
+<p>The endpoint will immediately respond with a <code>201-Accepted</code>. The result of the verification will be sent via POST to the webhookUrl you set in the request.</p>
 <h3 id='http-request'>HTTP Request</h3>
 <p><code>POST https://hoover.everproof.com/v1/wwcc/wa</code></p>
 <h3 id='request-arguments'>Request arguments</h3>
@@ -644,6 +652,12 @@ You must replace <code>lukeiamnotyourpassword</code> with your API key.
 <td>A value you can set that we will include in our response.</td>
 <td>Required</td>
 </tr>
+<tr>
+<td>webhookUrl</td>
+<td>string</td>
+<td>The webhook address you want us to POST results to</td>
+<td>Required</td>
+</tr>
 </tbody></table>
 <h4 id='person'>Person</h4>
 <table><thead>
@@ -688,6 +702,30 @@ You must replace <code>lukeiamnotyourpassword</code> with your API key.
 </tr>
 </thead><tbody>
 <tr>
+<td>result</td>
+<td>object</td>
+<td>The result of the verification</td>
+</tr>
+<tr>
+<td>trackingId</td>
+<td>string</td>
+<td>The value that you sent with your request.</td>
+</tr>
+<tr>
+<td>timestamp</td>
+<td>string</td>
+<td>ISO 8601 formatted datetime.</td>
+</tr>
+</tbody></table>
+<h4 id='result-object'>Result object</h4>
+<table><thead>
+<tr>
+<th>Result</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
 <td>approval</td>
 <td>boolean</td>
 <td>A boolean representing if the individual is permitted to work with children.</td>
@@ -707,11 +745,6 @@ You must replace <code>lukeiamnotyourpassword</code> with your API key.
 <td>object</td>
 <td>Any extra data that we retrieve from the Department for Child Protection and Family Support.</td>
 </tr>
-<tr>
-<td>trackingId</td>
-<td>string</td>
-<td>The value that you sent with your request.</td>
-</tr>
 </tbody></table>
 <h2 id='dcsi-south-australia'>DCSI (South Australia)</h2>
 <blockquote>
@@ -725,24 +758,30 @@ You must replace <code>lukeiamnotyourpassword</code> with your API key.
     "lastName": "Tendulkar",
     "dateOfBirth": "1973-04-23"
   },
-  "trackingId": "372630f8-ccea-49a9-b682-ba11188929a9"
+  "trackingId": "372630f8-ccea-49a9-b682-ba11188929a9",
+  "webhookUrl": "https://webhook.com/everproof/results"
 }'</span> <span class="s1">'https://hoover.everproof.com/v1/wwcc/sa'</span>
 </code></pre>
 <blockquote>
-<p>Example response</p>
+<p>Example result (sent via webhook)</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
- </span><span class="s2">"approval"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
- </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"VERIFIED"</span><span class="p">,</span><span class="w">
- </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Valid for 3 years from the determination date unless revoked by the screening unit."</span><span class="p">,</span><span class="w">
- </span><span class="s2">"retrieved"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-     </span><span class="s2">"attainedDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016/10/24"</span><span class="p">,</span><span class="w">
-     </span><span class="s2">"expiryDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019/10/24"</span><span class="w">
+ </span><span class="s2">"result"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="s2">"approval"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"VERIFIED"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Valid for 3 years from the determination date unless revoked by the screening unit."</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"retrieved"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"attainedDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016/10/24"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"expiryDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019/10/24"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
  </span><span class="p">},</span><span class="w">
+ </span><span class="s2">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-10-30T01:58:16+00:00"</span><span class="p">,</span><span class="w">
  </span><span class="s2">"trackingId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"372630f8-ccea-49a9-b682-ba11188929a9"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <p>This endpoint will verify a DCSI Screening conducted by the Department for Communities and Social Inclusion in South Australia.</p>
+
+<p>The endpoint will immediately respond with a <code>201-Accepted</code>. The result of the verification will be sent via POST to the webhookUrl you set in the request.</p>
 <h3 id='http-request'>HTTP Request</h3>
 <p><code>POST https://hoover.everproof.com/v1/wwcc/sa</code></p>
 <h3 id='request-arguments'>Request arguments</h3>
@@ -778,6 +817,12 @@ You must replace <code>lukeiamnotyourpassword</code> with your API key.
 <td>A value you can set that we will include in our response.</td>
 <td>Required</td>
 </tr>
+<tr>
+<td>webhookUrl</td>
+<td>string</td>
+<td>The webhook address you want us to POST results to</td>
+<td>Required</td>
+</tr>
 </tbody></table>
 <h4 id='person'>Person</h4>
 <table><thead>
@@ -814,6 +859,30 @@ You must replace <code>lukeiamnotyourpassword</code> with your API key.
 </tr>
 </tbody></table>
 <h3 id='response-values'>Response values</h3>
+<table><thead>
+<tr>
+<th>Value</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>result</td>
+<td>object</td>
+<td>The result of the verification</td>
+</tr>
+<tr>
+<td>trackingId</td>
+<td>string</td>
+<td>The value that you sent with your request.</td>
+</tr>
+<tr>
+<td>timestamp</td>
+<td>string</td>
+<td>ISO 8601 formatted datetime.</td>
+</tr>
+</tbody></table>
+<h4 id='result-object'>Result object</h4>
 <table><thead>
 <tr>
 <th>Value</th>
@@ -860,20 +929,26 @@ You must replace <code>lukeiamnotyourpassword</code> with your API key.
     "lastName": "Tendulkar",
     "dateOfBirth": "1973-04-23"
   },
-  "trackingId": "372630f8-ccea-49a9-b682-ba11188929a9"
+  "trackingId": "372630f8-ccea-49a9-b682-ba11188929a9",
+  "webhookUrl": "https://webhook.com/everproof/results"
 }'</span> <span class="s1">'https://hoover.everproof.com/v1/wwcc/qld/blue-card'</span>
 </code></pre>
 <blockquote>
-<p>Example response</p>
+<p>Example result (sent via webhook)</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
- </span><span class="s2">"approval"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
- </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"VERIFIED"</span><span class="p">,</span><span class="w">
- </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"12345678/9 is a valid card."</span><span class="p">,</span><span class="w">
+ </span><span class="s2">"result"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="s2">"approval"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"VERIFIED"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"12345678/9 is a valid card."</span><span class="p">,</span><span class="w">
+ </span><span class="p">},</span><span class="w">
+ </span><span class="s2">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-10-30T01:58:16+00:00"</span><span class="p">,</span><span class="w">
  </span><span class="s2">"trackingId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"372630f8-ccea-49a9-b682-ba11188929a9"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <p>This endpoint will verify a Blue Card with the Public Safety Business Agency in Queensland.</p>
+
+<p>The endpoint will immediately respond with a <code>201-Accepted</code>. The result of the verification will be sent via POST to the webhookUrl you set in the request.</p>
 <h3 id='http-request'>HTTP Request</h3>
 <p><code>POST https://hoover.everproof.com/v1/wwcc/qld/blue-card</code></p>
 <h3 id='request-arguments'>Request arguments</h3>
@@ -907,6 +982,12 @@ You must replace <code>lukeiamnotyourpassword</code> with your API key.
 <td>trackingId</td>
 <td>string</td>
 <td>A value you can set that we will include in our response.</td>
+<td>Required</td>
+</tr>
+<tr>
+<td>webhookUrl</td>
+<td>string</td>
+<td>The webhook address you want us to POST results to</td>
 <td>Required</td>
 </tr>
 </tbody></table>
@@ -945,6 +1026,30 @@ You must replace <code>lukeiamnotyourpassword</code> with your API key.
 </tr>
 </tbody></table>
 <h3 id='response-values'>Response values</h3>
+<table><thead>
+<tr>
+<th>Value</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>result</td>
+<td>object</td>
+<td>The result of the verification</td>
+</tr>
+<tr>
+<td>trackingId</td>
+<td>string</td>
+<td>The value that you sent with your request.</td>
+</tr>
+<tr>
+<td>timestamp</td>
+<td>string</td>
+<td>ISO 8601 formatted datetime.</td>
+</tr>
+</tbody></table>
+<h4 id='result-object'>Result object</h4>
 <table><thead>
 <tr>
 <th>Value</th>
@@ -989,20 +1094,26 @@ You must replace <code>lukeiamnotyourpassword</code> with your API key.
     "middleName": "Ramesh",
     "lastName": "Tendulkar",
   },
-  "trackingId": "372630f8-ccea-49a9-b682-ba11188929a9"
+  "trackingId": "372630f8-ccea-49a9-b682-ba11188929a9",
+  "webhookUrl": "https://webhook.com/everproof/results"
 }'</span> <span class="s1">'https://hoover.everproof.com/v1/wwcc/qld/exemption-card'</span>
 </code></pre>
 <blockquote>
-<p>Example response</p>
+<p>Example result (sent via webhook)</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
- </span><span class="s2">"approval"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
- </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"VERIFIED"</span><span class="p">,</span><span class="w">
- </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"TODO: Fill this in"</span><span class="p">,</span><span class="w">
+ </span><span class="s2">"result"</span><span class="p">:{</span><span class="w">
+  </span><span class="s2">"approval"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"VERIFIED"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"TODO: Fill this in"</span><span class="w">
+ </span><span class="p">},</span><span class="w">
+ </span><span class="s2">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-10-30T01:58:16+00:00"</span><span class="p">,</span><span class="w">
  </span><span class="s2">"trackingId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"372630f8-ccea-49a9-b682-ba11188929a9"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <p>This endpoint will verify a Exemption Card with the Public Safety Business Agency in Queensland.</p>
+
+<p>The endpoint will immediately respond with a <code>201-Accepted</code>. The result of the verification will be sent via POST to the webhookUrl you set in the request.</p>
 <h3 id='http-request'>HTTP Request</h3>
 <p><code>POST https://hoover.everproof.com/v1/wwcc/qld/exemption-card</code></p>
 <h3 id='request-arguments'>Request arguments</h3>
@@ -1030,6 +1141,12 @@ You must replace <code>lukeiamnotyourpassword</code> with your API key.
 <td>trackingId</td>
 <td>string</td>
 <td>A value you can set that we will include in our response.</td>
+<td>Required</td>
+</tr>
+<tr>
+<td>webhookUrl</td>
+<td>string</td>
+<td>The webhook address you want us to POST results to</td>
 <td>Required</td>
 </tr>
 </tbody></table>
@@ -1076,6 +1193,30 @@ You must replace <code>lukeiamnotyourpassword</code> with your API key.
 </tr>
 </thead><tbody>
 <tr>
+<td>result</td>
+<td>object</td>
+<td>The result of the verification</td>
+</tr>
+<tr>
+<td>trackingId</td>
+<td>string</td>
+<td>The value that you sent with your request.</td>
+</tr>
+<tr>
+<td>timestamp</td>
+<td>string</td>
+<td>ISO 8601 formatted datetime.</td>
+</tr>
+</tbody></table>
+<h4 id='result-object'>Result object</h4>
+<table><thead>
+<tr>
+<th>Value</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
 <td>approval</td>
 <td>boolean</td>
 <td>A boolean representing if the individual is permitted to work with children.</td>
@@ -1095,11 +1236,6 @@ You must replace <code>lukeiamnotyourpassword</code> with your API key.
 <td>object</td>
 <td>Any extra data that we retrieve from the Public Safety Business Agency.</td>
 </tr>
-<tr>
-<td>trackingId</td>
-<td>string</td>
-<td>The value that you sent with your request.</td>
-</tr>
 </tbody></table>
 <h2 id='vit-registration-victoria'>VIT Registration (Victoria)</h2>
 <blockquote>
@@ -1113,20 +1249,26 @@ You must replace <code>lukeiamnotyourpassword</code> with your API key.
     "lastName": "Tendulkar",
     "dateOfBirth": "1973-04-23"
   },
-  "trackingId": "372630f8-ccea-49a9-b682-ba11188929a9"
+  "trackingId": "372630f8-ccea-49a9-b682-ba11188929a9",
+  "webhookUrl": "https://webhook.com/everproof/results"
 }'</span> <span class="s1">'https://hoover.everproof.com/v1/vit'</span>
 </code></pre>
 <blockquote>
-<p>Example response</p>
+<p>Example result (sent via webhook)</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
- </span><span class="s2">"approval"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
- </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"VERIFIED"</span><span class="p">,</span><span class="w">
- </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"TODO: Fill this in"</span><span class="p">,</span><span class="w">
+ </span><span class="s2">"result"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="s2">"approval"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"VERIFIED"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"TODO: Fill this in"</span><span class="p">,</span><span class="w">
+ </span><span class="p">},</span><span class="w">
+ </span><span class="s2">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-10-30T01:58:16+00:00"</span><span class="p">,</span><span class="w">
  </span><span class="s2">"trackingId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"372630f8-ccea-49a9-b682-ba11188929a9"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <p>This endpoint will verify a Teaching Registration with the Victorian Institute of Teaching.</p>
+
+<p>The endpoint will immediately respond with a <code>201-Accepted</code>. The result of the verification will be sent via POST to the webhookUrl you set in the request.</p>
 <h3 id='http-request'>HTTP Request</h3>
 <p><code>POST https://hoover.everproof.com/v1/vit</code></p>
 <h3 id='request-arguments'>Request arguments</h3>
@@ -1162,6 +1304,12 @@ You must replace <code>lukeiamnotyourpassword</code> with your API key.
 <td>A value you can set that we will include in our response.</td>
 <td>Required</td>
 </tr>
+<tr>
+<td>webhookUrl</td>
+<td>string</td>
+<td>The webhook address you want us to POST results to</td>
+<td>Required</td>
+</tr>
 </tbody></table>
 <h4 id='person'>Person</h4>
 <table><thead>
@@ -1198,6 +1346,30 @@ You must replace <code>lukeiamnotyourpassword</code> with your API key.
 </tr>
 </tbody></table>
 <h3 id='response-values'>Response values</h3>
+<table><thead>
+<tr>
+<th>Value</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>result</td>
+<td>object</td>
+<td>The result of the verification</td>
+</tr>
+<tr>
+<td>trackingId</td>
+<td>string</td>
+<td>The value that you sent with your request.</td>
+</tr>
+<tr>
+<td>timestamp</td>
+<td>string</td>
+<td>ISO 8601 formatted datetime.</td>
+</tr>
+</tbody></table>
+<h4 id='result-object'>Result object</h4>
 <table><thead>
 <tr>
 <th>Value</th>
@@ -1243,20 +1415,26 @@ You must replace <code>lukeiamnotyourpassword</code> with your API key.
     "lastName": "Tendulkar",
     "dateOfBirth": "1973-04-23"
   },
-  "trackingId": "372630f8-ccea-49a9-b682-ba11188929a9"
+  "trackingId": "372630f8-ccea-49a9-b682-ba11188929a9",
+  "webhookUrl": "https://webhook.com/everproof/results"
 }'</span> <span class="s1">'https://hoover.everproof.com/v1/vit'</span>
 </code></pre>
 <blockquote>
-<p>Example response</p>
+<p>Example result (sent via webhook)</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
- </span><span class="s2">"approval"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
- </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"VERIFIED"</span><span class="p">,</span><span class="w">
- </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"TODO: Fill this in"</span><span class="p">,</span><span class="w">
+ </span><span class="s2">"result"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="s2">"approval"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"VERIFIED"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"TODO: Fill this in"</span><span class="w">
+ </span><span class="p">},</span><span class="w">
+ </span><span class="s2">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-10-30T01:58:16+00:00"</span><span class="p">,</span><span class="w">
  </span><span class="s2">"trackingId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"372630f8-ccea-49a9-b682-ba11188929a9"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <p>This endpoint will verify an Early Childhood Teacher Registration with the Victorian Institute of Teaching.</p>
+
+<p>The endpoint will immediately respond with a <code>201-Accepted</code>. The result of the verification will be sent via POST to the webhookUrl you set in the request.</p>
 <h3 id='http-request'>HTTP Request</h3>
 <p><code>POST https://hoover.everproof.com/v1/vit</code></p>
 <h3 id='request-arguments'>Request arguments</h3>
@@ -1290,6 +1468,12 @@ You must replace <code>lukeiamnotyourpassword</code> with your API key.
 <td>trackingId</td>
 <td>string</td>
 <td>A value you can set that we will include in our response.</td>
+<td>Required</td>
+</tr>
+<tr>
+<td>webhookUrl</td>
+<td>string</td>
+<td>The webhook address you want us to POST results to</td>
 <td>Required</td>
 </tr>
 </tbody></table>
@@ -1328,6 +1512,30 @@ You must replace <code>lukeiamnotyourpassword</code> with your API key.
 </tr>
 </tbody></table>
 <h3 id='response-values'>Response values</h3>
+<table><thead>
+<tr>
+<th>Value</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>result</td>
+<td>object</td>
+<td>The result of the verification</td>
+</tr>
+<tr>
+<td>trackingId</td>
+<td>string</td>
+<td>The value that you sent with your request.</td>
+</tr>
+<tr>
+<td>timestamp</td>
+<td>string</td>
+<td>ISO 8601 formatted datetime.</td>
+</tr>
+</tbody></table>
+<h4 id='result-object'>Result object</h4>
 <table><thead>
 <tr>
 <th>Value</th>
