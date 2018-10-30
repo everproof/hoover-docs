@@ -14,6 +14,7 @@ includes:
   - auth
   - errors
   - status
+  - webhooks
   - supported
   - wwcc_vic
   - wwcc_wa
