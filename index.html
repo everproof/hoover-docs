@@ -231,6 +231,14 @@
             <a href="#status-attribute" class="toc-h1 toc-link" data-title="Status Attribute">Status Attribute</a>
           </li>
           <li>
+            <a href="#webhooks" class="toc-h1 toc-link" data-title="Webhooks">Webhooks</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#securing-webhooks" class="toc-h2 toc-link" data-title="Securing webhooks">Securing webhooks</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
             <a href="#verification-endpoints" class="toc-h1 toc-link" data-title="Verification endpoints">Verification endpoints</a>
               <ul class="toc-list-h2">
                   <li>
@@ -365,6 +373,28 @@ You must replace <code>lukeiamnotyourpassword</code> with your API key.
 <td>The document was found but it is being processed by the source.</td>
 </tr>
 </tbody></table>
+<h1 id='webhooks'>Webhooks</h1>
+<p>The verification results are sent asynchronously.</p>
+
+<p>Pass along a <code>webhookUrl</code> parameter in every request body, that contains the location you&#39;d like us to POST your verification results to.</p>
+
+<p>To connect our response to your initial request, you must pass a <code>trackingId</code> parameter in your request body too. We’ll pass this identifier back to you with the webhook request.</p>
+
+<p><strong>If you return anything other than an HTTP 200 status to the webhook POST then we’ll try to deliver the webhook up to 3 times with an exponential backoff.</strong></p>
+<h3 id='securing-webhooks'>Securing webhooks</h3>
+<p>We will sign the webhook requests before we send them to your endpoints. We do so by including a header <code>Everproof-Signature</code>. This allows you to validate that the events were sent by Everproof, not by a third party. You can verify signatures using by using your API key and the raw body of the request. Make sure to strip the prefix (pk_) from the start of the key before generating the HMAC.</p>
+
+<table><thead>
+<tr>
+<th>Header</th>
+<th>Name</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Everproof-Signature</td>
+<td>An SHA1 HMAC hexdigest</td>
+</tr>
+</tbody></table>
 <h1 id='verification-endpoints'>Verification endpoints</h1><h2 id='supported-verifications'>Supported verifications</h2>
 <blockquote>
 <p>Example request</p>
@@ -397,27 +427,33 @@ You must replace <code>lukeiamnotyourpassword</code> with your API key.
     "middleName": "Ramesh",
     "lastName": "Tendulkar"
   },
-  "trackingId": "372630f8-ccea-49a9-b682-ba11188929a9"
+  "trackingId": "372630f8-ccea-49a9-b682-ba11188929a9",
+  "webhookUrl": "https://webhook.com/everproof/results"
 }'</span> <span class="s1">'https://hoover.everproof.com/v1/wwcc/vic'</span>
 </code></pre>
 <blockquote>
-<p>Example response</p>
+<p>Example result (sent via webhook)</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
- </span><span class="s2">"approval"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
- </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"VERIFIED"</span><span class="p">,</span><span class="w">
- </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Working with Children Check number 123456789 (Employee) 
-            for Sachin Ramesh TENDULKAR is current. This person 
-            may engage in child related work and their card expires 
-            on 25 Mar 2025."</span><span class="p">,</span><span class="w">
- </span><span class="s2">"retrieved"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-     </span><span class="s2">"cardType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Employee"</span><span class="p">,</span><span class="w">
-     </span><span class="s2">"expiryDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2025-03-25"</span><span class="p">,</span><span class="w">
+ </span><span class="s2">"result"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="s2">"approval"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"VERIFIED"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Working with Children Check number 123456789 (Employee) 
+              for Sachin Ramesh TENDULKAR is current. This person 
+              may engage in child related work and their card expires 
+              on 25 Mar 2025."</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"retrieved"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"cardType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Employee"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"expiryDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2025-03-25"</span><span class="p">,</span><span class="w">
+  </span><span class="p">}</span><span class="w">
  </span><span class="p">},</span><span class="w">
+ </span><span class="s2">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-10-30T01:58:16+00:00"</span><span class="p">,</span><span class="w">
  </span><span class="s2">"trackingId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"372630f8-ccea-49a9-b682-ba11188929a9"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <p>This endpoint will verify a Working With Children Check issued by the Department of Justice and Regulation in Victoria.</p>
+
+<p>The endpoint will immediately respond with a <code>201-Accepted</code>. The result of the verification will be sent via POST to the webhookUrl you set in the request.</p>
 <h3 id='http-request'>HTTP Request</h3>
 <p><code>POST https://hoover.everproof.com/v1/wwcc/vic</code></p>
 <h3 id='request-arguments'>Request arguments</h3>
@@ -451,6 +487,12 @@ You must replace <code>lukeiamnotyourpassword</code> with your API key.
 <td>trackingId</td>
 <td>string</td>
 <td>A value you can set that we will include in our response.</td>
+<td>Required</td>
+</tr>
+<tr>
+<td>webhookUrl</td>
+<td>string</td>
+<td>The webhook address you want us to POST results to</td>
 <td>Required</td>
 </tr>
 </tbody></table>
@@ -497,6 +539,30 @@ You must replace <code>lukeiamnotyourpassword</code> with your API key.
 </tr>
 </thead><tbody>
 <tr>
+<td>result</td>
+<td>object</td>
+<td>The result of the verification</td>
+</tr>
+<tr>
+<td>trackingId</td>
+<td>string</td>
+<td>The value that you sent with your request.</td>
+</tr>
+<tr>
+<td>timestamp</td>
+<td>string</td>
+<td>ISO 8601 formatted datetime.</td>
+</tr>
+</tbody></table>
+<h4 id='result-object'>Result object</h4>
+<table><thead>
+<tr>
+<th>Result</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
 <td>approval</td>
 <td>boolean</td>
 <td>A boolean representing if the individual is permitted to work with children.</td>
@@ -515,11 +581,6 @@ You must replace <code>lukeiamnotyourpassword</code> with your API key.
 <td>retrieved</td>
 <td>object</td>
 <td>Any extra data that we retrieve from the Department of Justice and Regulation.</td>
-</tr>
-<tr>
-<td>trackingId</td>
-<td>string</td>
-<td>The value that you sent with your request.</td>
 </tr>
 </tbody></table>
 <h2 id='wwcc-western-australia'>WWCC (Western Australia)</h2>
