@@ -64,7 +64,7 @@ lastName    | string               | The document holder's last name     | Requi
 dateOfBirth | string (yyyy-mm-dd)  | The document holder's date of birth | Optional
 
 
-### Response values
+### Response values 
 
 Value       | Type    | Description                         
 ----------- | ------- | -----------------------------

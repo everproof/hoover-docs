@@ -1,6 +1,6 @@
 # Webhooks
 
-The verification results are sent asynchronously.
+Your verification results will be sent asynchronously.
 
 Pass along a `webhookUrl` parameter in every request body, that contains the location you'd like us to POST your verification results to.
 

@@ -23,6 +23,8 @@ curl "https://hoover.everproof.com/v1/"
 
 This endpoint will return a list of all documents that we are able to verify. The response will also include the URL that you use to access those verifications. This gives you the flexibility to programmatically check the URL to use to verify a document, meaning that if we ever change URLs you should not be impacted.
 
+Note that this endpoint is synchronous and doesn't use a webhook.
+
 ### HTTP Request
 
 `GET https://hoover.everproof.com/v1/`
